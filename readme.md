@@ -1,11 +1,11 @@
-SeedBed is a seeder allows you create data for any models or collections in any database engine like MongoDB, MySQL, Postgres, etc. (Current version: Only Supports MongoDB).
+Seedman is a seeder allows you create data for any models or collections in any database engine like MongoDB, MySQL, Postgres, etc. (Current version: Only Supports MongoDB).
 
 
 ## Installation
 
 Using npm:
 ```
-npm install --save seedbed
+npm install --save seedman
 ```
 
 ## Features
