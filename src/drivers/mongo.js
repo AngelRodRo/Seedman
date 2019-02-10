@@ -32,9 +32,23 @@ class MongoDriver extends Driver {
     }
 
     errorHandler(error) {
-        if (error.name === "MongoError" && error.message === "Authentication failed.") {
-            return Promise.reject("Database Authentication failed.");
+        if (error.name && error.name === "MongoError") {
+            if (error.message === "Authentication failed.") {
+                return Promise.reject("Database Authentication failed.");
+            } 
+            if (error.message.includes("slash in host identifier")) {
+                return Promise.reject("Error in host identifier");
+            }
+    
+            if (error.message.includes("failed to connect to server ")) {
+                return Promise.reject("Error trying to connect to the host server");
+            }
         }
+        
+        console.log("Unknow error");
+        console.log(error);
+        return Promise.reject();
+        
     }
 }
 

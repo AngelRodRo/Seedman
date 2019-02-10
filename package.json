@@ -1,6 +1,6 @@
 {
   "name": "seedman",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Seeder for populate a DB in Mongodb, MySQL or Postgres",
   "main": "src/index.js",
   "scripts": {
@@ -28,7 +28,7 @@
     "url": "https://github.com/AngelRodRo/bale.js"
   },
   "bin": {
-    "bale": "./bin/global.js"
+    "seedman": "./bin/global.js"
   },
   "license": "ISC",
   "preferGlobal": true
