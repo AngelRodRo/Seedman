@@ -116,7 +116,7 @@ user.json
     }
 ```
 
-**firstName, lastName, phone, address**, theses properties will use values according to their context:
+**firstName, lastName, phone and address**. Theses properties will use values according to their context:
 
 ```json
 {
@@ -128,7 +128,7 @@ user.json
 }
 ```
 
-But there are some properties name, it won't identify according to the name and generate a random string or it depending of the type defined in the seeder can be a number or array (length = 5).
+But, there are some properties name, it won't identify according to the name and generate a random string or it depending of the type defined in the seeder can be a number or string array (length = 5).
 
 
 
