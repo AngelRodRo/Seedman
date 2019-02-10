@@ -18,9 +18,10 @@ npm install --save seedman
 ## Usage 
 
 For usage it's neccesary define a JSON files defining properties such:
-    - name: Model name in the DB for populate
-    - properties: Model properties or fields.
-    - count: Amout data for populate in the model
+   
+- name: Model name in the DB for populate
+- properties: Model properties or fields.
+- count: Amout data for populate in the model
 
 
 Example:
