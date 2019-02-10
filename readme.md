@@ -25,7 +25,7 @@ For usage it's neccesary define a JSON files defining properties such:
 
 Example:
 
-user.json
+**user.json**
 ```json
     {
         "name": "User",
@@ -39,7 +39,7 @@ user.json
     }
 ```
 
-post.json
+**post.json**
 ```json
     {
         "name": "Post",
@@ -54,9 +54,9 @@ post.json
 
 For default, theses files must be inside a folder named `seeders`
 
-Also it's important to define a configuration file in otherwise will be use a default config for the driver choosen
+Also it's important to define a configuration file in otherwise will be use a default config for the driver choosen (mongodb)
 
-seeder.config.json
+**seeder.config.json**
 ```json
 {
     "user": "",
@@ -67,7 +67,7 @@ seeder.config.json
 }
 ```
 
-#CLI
+## CLI
 
 ```
 $ seedman -h
@@ -81,7 +81,7 @@ $ seedman -h
     -h, --help                    output usage information
 ```
 
-#Seeds props
+## Seeds props
 
 | Props       | Description                                  | 
 | ----------- | -------------------------------------------- | 
