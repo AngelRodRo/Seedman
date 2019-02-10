@@ -88,7 +88,7 @@ $ seedman -h
 | ----------- | -------------------------------------------- | 
 | name        | Model name what is definied in the database  | 
 | properties  | Model properties                             | 
-| count       | Amout data for populate in the model         |
+| count       | Amount data for populate in the model         |
 
 ## Properties
 
