@@ -1,0 +1,7 @@
+{
+    "name": "Photo",
+    "properties" : {
+        "url": "string"
+    },
+    "count": 20
+}

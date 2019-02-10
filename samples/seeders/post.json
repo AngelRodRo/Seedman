@@ -1,0 +1,9 @@
+{
+    "name": "Post",
+    "properties" : {
+        "title": "string",
+        "tags": "array",
+        "visits": "number"
+    },
+    "count": 20
+}
