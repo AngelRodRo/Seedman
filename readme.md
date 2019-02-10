@@ -55,7 +55,7 @@ Example:
 
 For default, theses files must be inside a folder named `seeders`
 
-Also it's important to define a configuration file in otherwise will be use a default config for the driver choosen (mongodb)
+Also it's important to define a configuration file in otherwise will be use a default config for the driver choosen (mongodb). It should be in the same path that the command is execute (It shouldn't be inside a folder).
 
 **seeder.config.json**
 ```json

@@ -35,7 +35,7 @@ function getSeedersPath() {
 }
 
 function getOptions() {
-    const optionsPath = path.join(process.cwd(), "bale.config.json");
+    const optionsPath = path.join(process.cwd(), "seeder.config.json");
     try {
         const options = require(optionsPath);
         return options;
