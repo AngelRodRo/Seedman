@@ -1,5 +1,5 @@
 {
-  "name": "seedbed",
+  "name": "seedman",
   "version": "0.1.0",
   "description": "Seeder for populate a DB in Mongodb, MySQL or Postgres",
   "main": "src/index.js",
