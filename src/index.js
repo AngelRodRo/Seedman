@@ -50,21 +50,22 @@ function getOptions() {
         return;
     }
 
-    const seedersPath = getSeedersPath();
-    fs.readdir(seedersPath, function (err, files) {
+    const seedsPath = getSeedersPath();
+    fs.readdir(seedsPath, function (err, files) {
         if (err) {
             console.log("Seeders not found !".red);
             return;
         }
-        const bale = new Bale();
+        const bale = new Bale({seedsPath});
         const options = getOptions();
         bale.connect(options)
         .then(function () {
+            console.log("conencted")
             for (const file of files) {
-                const seeder = require(`${seedersPath}/${file}`);
+                const seeder = require(`${seedsPath}/${file}`);
                 bale.use(seeder);
             }
-            return bale.run().then(() => console.log('Seeder completed!'.green));
+            return bale.run().then(() => console.log('Seeder completed!'.green)).catch(console.log);
         })
         .catch(e => console.log(e.red))
         .then(process.exit)

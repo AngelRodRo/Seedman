@@ -4,7 +4,11 @@
         "firstName": "string",
         "lastName": "string",
         "phone": "string",
-        "address": "string"
+        "address": "string",
+        "Posts": {
+            "type": "model",
+            "relation": "hasOne"
+        }
     },
     "count": 20
 }
