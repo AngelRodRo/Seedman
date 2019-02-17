@@ -19,7 +19,8 @@ class MongoDriver extends Driver {
         .then(db => {
             this.db = db;
             db.dropDatabase();
-        })
+            return "connected!";
+        });
     }
 
     createConnectionString(user, password, host, port, dbname) {
