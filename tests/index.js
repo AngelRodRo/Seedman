@@ -44,8 +44,10 @@ describe("bale", () => {
                 };
 
                 const mongoDriver = new MongoDriver(dbParams);
+                await mongoDriver.connect();
                 const result = await mongoDriver.insert("modelTest", dataTest);
-                expect(result).to.have
+                
+                expect(result.insertedIds[0].toString()).to.be.a("string");
 
             })
         });
@@ -73,6 +75,39 @@ describe("bale", () => {
             expect(bale.seeders[0]).to.have.property("name");
             expect(bale.seeders[0]).to.have.property("properties");
             expect(bale.seeders[0]).to.have.property("count");
+        });
+
+        it("should add fake data", async () => {
+            const seed = {
+                name: "modelTest",
+                properties: {
+                    name: "string"
+                },
+                count: 5
+            }
+
+            await bale.connect({});
+            bale.use(seed);
+            await bale.run();
+
+            const db = bale.dbDriver.db;
+
+            const collinfo = await new Promise((resolve, reject) => {
+                db.listCollections({name: seed.name})
+                .next(function(err, collinfo) {
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+                    resolve(collinfo);
+                });
+            });
+
+            const collection = db.collection(seed.name);
+            const count = await collection.count();
+
+            expect(collinfo).to.be.a("object");
+            expect(count).to.be.equal(seed.count);
         });
     });
 
