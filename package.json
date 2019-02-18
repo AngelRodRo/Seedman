@@ -4,7 +4,7 @@
   "description": "Seeder for populate a DB in Mongodb, MySQL or Postgres",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/index.js"
   },
   "keywords": [
     "seeders",
@@ -31,5 +31,9 @@
     "seedman": "./bin/global.js"
   },
   "license": "ISC",
-  "preferGlobal": true
+  "preferGlobal": true,
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
 }
