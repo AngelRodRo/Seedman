@@ -1,6 +1,6 @@
 {
   "name": "seedman",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Seeder for populate a DB in Mongodb, MySQL or Postgres",
   "main": "src/index.js",
   "scripts": {

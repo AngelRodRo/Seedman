@@ -62,9 +62,16 @@ function getOptions() {
         .then(function () {
             for (const file of files) {
                 const seeder = require(`${seedersPath}/${file}`);
+                seeder.file = file;
                 bale.use(seeder);
             }
-            return bale.run().then(() => console.log('Seeder completed!'.green));
+            return bale.run().then((success) => {
+                if(success) {
+                    console.log('Seeder completed!'.green);
+                } else {
+                    console.log(`Seeder can't complete`.red);
+                }
+            })
         })
         .catch(e => console.log(e.red))
         .then(process.exit)

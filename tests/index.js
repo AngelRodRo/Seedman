@@ -8,6 +8,10 @@ describe("bale", () => {
         bale = new Bale();
     });
 
+    afterEach(() => {
+        bale.seeders = [];
+    });
+
     describe("drivers", () => {
         describe("mongo", () => {
             const MongoDriver = require("../src/drivers/mongo");
@@ -76,6 +80,22 @@ describe("bale", () => {
             expect(bale.seeders[0]).to.have.property("properties");
             expect(bale.seeders[0]).to.have.property("count");
         });
+
+        it("should avoid insert fake data when seed name is not defined", async () => {
+            const seed = {
+                name: "",
+                properties: {
+                    name: ""
+                },
+                count: 1,
+                file: "somefile.json"
+            };
+            bale.use(seed);
+            await bale.connect({});
+            const success = await bale.run()
+            expect(success).to.equal(false);
+           
+        })
 
         it("should add fake data", async () => {
             const seed = {
