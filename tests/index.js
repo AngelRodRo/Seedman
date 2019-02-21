@@ -81,7 +81,7 @@ describe("bale", () => {
             expect(bale.seeders[0]).to.have.property("count");
         });
 
-        it("should show a message for avoid insert fake data", async () => {
+        it("should avoid insert fake data when seed name is not defined", async () => {
             const seed = {
                 name: "",
                 properties: {
