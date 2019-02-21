@@ -87,13 +87,11 @@ describe("bale", () => {
                 properties: {
                     name: ""
                 },
-                count: 1
+                count: 1,
+                file: "somefile.json"
             };
-
-
             bale.use(seed);
             await bale.connect({});
-            console.log(bale)
             const success = await bale.run()
             expect(success).to.equal(false);
            
