@@ -10,7 +10,7 @@ class Bale {
         this.use = this.use.bind(this);
     }
 
-    connect({driver = "mongo", ...connectionArgs}) {
+    connect({driver = "postgres", ...connectionArgs}) {
         const DBDriver = require(`./drivers/${driver.toLowerCase()}`);
         this.dbDriver = new DBDriver({driver, ...connectionArgs});
         return this.dbDriver.connect().catch(this.dbDriver.errorHandler);
@@ -43,7 +43,12 @@ class Bale {
                         }
                     }
                 }   
-                await this.dbDriver.insert(seeder.name, data);
+                debugger
+                try {
+                    await this.dbDriver.insert(seeder.name, data);
+                } catch (e) {
+                    debugger
+                }
             }
             completed++;
         }

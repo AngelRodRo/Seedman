@@ -60,11 +60,14 @@ function getOptions() {
         const options = getOptions();
         bale.connect(options)
         .then(function () {
+            debugger
+
             for (const file of files) {
                 const seeder = require(`${seedersPath}/${file}`);
                 seeder.file = file;
                 bale.use(seeder);
             }
+            debugger
             return bale.run().then((success) => {
                 if(success) {
                     console.log('Seeder completed!'.green);

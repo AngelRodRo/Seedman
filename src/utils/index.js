@@ -34,3 +34,19 @@ module.exports.findPropValue = function (modelProperty, type) {
         return faker[fakerProperty][fakerFn]();
     }
 }
+
+module.exports.parseData = (data) => {
+    const lengthKeys = Object.keys(data).length;
+    const dataKeys = Object.keys(data).join(",");
+    const values = Object.values(data);
+
+    let dataValues = "";
+    let i;
+
+    for (i = 1; i <= lengthKeys - 1; i++) {
+        dataValues += `${i},`
+    }
+    dataValues += `${i+1}`;
+
+    return [dataKeys, dataValues, values];
+}
