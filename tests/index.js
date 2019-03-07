@@ -186,6 +186,7 @@ describe("bale", () => {
             // TODO: Add property in json file for avoid use it like a seed and only use like a schema  
 
             const checkOtherModel = (model) => {
+                const seed = bale.seeds.find(seed => seed.name === model);
 
             }
 
@@ -196,24 +197,38 @@ describe("bale", () => {
             
             for (const seed of bale.seeds) {
                 const {relations} = getPropertiesFlattened(seed.properties);
+                const expected = {
+                    Post: 0,
+                    User: 0,
+                    Tag: 0,
+                    Preference: 0
+                };
+
+                expected[seed.name] += seed.count;
+
                 for (const relation of relations) {
                     const docs = await bale.dbDriver.db.collection(relation.name).find({[generateFkId(seed.name)]: { $exists: true }}).toArray();
                     if (docs && docs.length) {
                         
                         const multiplier = (seed.properties[relation.name].count || (seed.properties[relation.name].relation === "hasMany"? 2 : 1));
-                        const expectDocsNumber = seed.count * multiplier;
-
-                        
-
-
-
-                        expect(docs.length).to.be.equal(expectDocsNumber);
+                        const expectDocsNumber = seed.count * multiplier + 20;
+                        expect[relation.name] += expectDocsNumber;
                         
                         for (const doc of docs) {
                             await expect(doc[generateFkId(seed.name)].toString()).to.be.a("string");
                         }
                     }
                 }
+                
+                //TODO: Check total of documents per model
+                for (const key in expected) {
+                    if (expected.hasOwnProperty(key)) {
+                        const element = expected[key];
+                    
+                    }
+                }
+
+
             }
             expect(success).to.equal(true);
 
