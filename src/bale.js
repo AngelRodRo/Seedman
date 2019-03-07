@@ -1,13 +1,12 @@
 "use strict";
 
-const {findPropValue} = require("./utils");
+const {findPropValue, generateFkId, getPropertiesFlattened} = require("./utils");
 
 class Bale {
-    constructor({seedsPath}) {
-        this.seeders = [];
+    constructor() {
+        this.seeds = [];
         this.excludes = [];
         this.dbDriver = {};
-        this.seedsPath = seedsPath;
         this.use = this.use.bind(this);
     }
 
@@ -17,76 +16,78 @@ class Bale {
         return this.dbDriver.connect().catch(this.dbDriver.errorHandler);
     }
 
-    use(seeder) {
-        this.seeders.push(seeder);
+    use(seed) {
+        this.seeds.push(seed);
     }
-
-    //393788542 movistar code
     createFakeData(properties) {
         const data = {};
-        const relations = [];
         for (const property in properties) {
             if (properties.hasOwnProperty(property)) {
                 const value = properties[property];
-                if (typeof value === "object") {
-                    if (value.type === "model") {
-                        if (["hasOne", "hasMany"].includes(value.relation)) {
-                            relations.push({
-                                name: property,
-                                type: value.relation,
-                                count: value.count
-                            });
-                        }
-                    }
-                } else {
-                    data[property] = findPropValue(property, value);
-                }
+                data[property] = findPropValue(property, value);
             }
         }   
-        return {
-            data,
-            relations
-        };
+        return data;
     }
 
     createSeed({name, type, count}) {
-        const seed = require(`${this.seedsPath}/${name}`);
-        if (type === "hasOne") {
-            seed.count = 1;
+        const seedFind = this.seeds.find(seed => seed.name === name);
+        if (seedFind) {
+            const seed = Object.assign({}, seedFind);
+            switch(type) {
+                case "hasOne":
+                    seed.count = 1;
+                    break;
+                case "hasMany":
+                    seed.count = count > 1 ? count : 2;
+                    break;
+            }
+            return seed;
         }
-
-        if (type === "hasMany") {
-            seed.count = 5;
-        }
-        return seed;
+        return;
     }
 
     async analyzeSeed(seed, relationModel) {
         for (let i = 0; i < (seed.count || 0); i++) {
-            const {data, relations} = this.createFakeData(seed.properties);
+            const {properties, relations} = getPropertiesFlattened(seed.properties);
+            const data = this.createFakeData(properties);
+
             if (relationModel && relationModel.fkId) {
                 data[relationModel.fkId] = relationModel.modelId;
             }
-            if (seed.name === "Post") {
-                console.log(data)
-            }
+            debugger
             const model = await this.dbDriver.insert(seed.name, data);
             const modelId = model.insertedIds[0];
             for (const relation of relations) {
-                await this.analyzeSeed(this.createSeed(relation),  {
-                    fkId: relation.fkId || `${seed.name.toLowerCase()}Id`,
-                    modelId
-                });
+                const createdSeed = this.createSeed(relation);
+                if (createdSeed) {
+                    await this.analyzeSeed(createdSeed,  {
+                        fkId: relation.fkId || generateFkId(seed.name),
+                        modelId
+                    });
+                }
             }
         }
     }
     
     async run() {
-        for (const seed of this.seeders) {
-            await this.analyzeSeed(seed);
-        }
-    }
+        let completed = 0;
 
+        for (const seed of this.seeds) {
+            if (!seed.name || seed.name === "") {
+                console.log(`Need to define a name for seed in ${seed.file}`.yellow);
+                continue;
+            }
+    
+            if (!seed.properties || seed.properties === "") {
+                console.log(`Need to define properties for seed in ${seed.file}`.yellow);
+                continue;
+            }
+            await this.analyzeSeed(seed);
+            completed++;
+        }
+        return completed !== 0;
+    }
 }
 
 module.exports = Bale;

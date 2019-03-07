@@ -7,7 +7,7 @@ class MongoDriver extends Driver {
         const {user = "", password = "", host = "localhost", port = "27017", dbname = "baleDB"} = this.config;
         const url = this.createConnectionString(user, password, host, port, dbname);
         const connectPromise = new Promise((resolve, reject) => {
-            MongoClient.connect(url, function(err, db) {
+            MongoClient.connect(url, function (err, db) {
                 if (err) {
                     reject(err);
                     return;
@@ -19,7 +19,8 @@ class MongoDriver extends Driver {
         .then(db => {
             this.db = db;
             db.dropDatabase();
-        })
+            return "connected!";
+        });
     }
 
     createConnectionString(user, password, host, port, dbname) {

@@ -1,0 +1,11 @@
+{
+    "name": "Post",
+    "properties" : {
+        "description": "string",
+        "Tag": {
+            "type": "model",
+            "relation": "hasMany"
+        }
+    },
+    "count": 1
+}

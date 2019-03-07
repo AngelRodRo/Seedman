@@ -1,0 +1,13 @@
+{
+    "name": "User",
+    "properties" : {
+        "lastName": "string",
+        "phone": "string",
+        "address": "string",
+        "Post": {
+            "type": "model",
+            "relation": "hasMany"
+        }
+    },
+    "count": 1
+}

@@ -1,10 +1,11 @@
 {
   "name": "seedman",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Seeder for populate a DB in Mongodb, MySQL or Postgres",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/index.js",
+    "test:inspect": "mocha spec --inspect-brk tests/index.js"
   },
   "keywords": [
     "seeders",
@@ -25,11 +26,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/AngelRodRo/bale.js"
+    "url": "https://github.com/AngelRodRo/Seedman"
   },
   "bin": {
     "seedman": "./bin/global.js"
   },
   "license": "ISC",
-  "preferGlobal": true
+  "preferGlobal": true,
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
 }

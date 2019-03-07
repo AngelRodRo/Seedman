@@ -130,7 +130,11 @@ user.json
 
 But, there are some properties name, it won't identify according to the name and generate a random string or it depending of the type defined in the seeder can be a number or string array (length = 5).
 
+## Tests
 
+```
+npm run test
+```
 
 
 
