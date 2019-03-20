@@ -195,15 +195,16 @@ describe("bale", () => {
             await bale.connect({});
             const success = await bale.run();
             
+            const expected = {
+                Post: 0,
+                User: 0,
+                Tag: 0,
+                Preference: 0
+            };
+
             for (const seed of bale.seeds) {
                 const {relations} = getPropertiesFlattened(seed.properties);
-                const expected = {
-                    Post: 0,
-                    User: 0,
-                    Tag: 0,
-                    Preference: 0
-                };
-
+                console.log(seed.name)
                 expected[seed.name] += seed.count;
 
                 for (const relation of relations) {
@@ -211,25 +212,26 @@ describe("bale", () => {
                     if (docs && docs.length) {
                         
                         const multiplier = (seed.properties[relation.name].count || (seed.properties[relation.name].relation === "hasMany"? 2 : 1));
-                        const expectDocsNumber = seed.count * multiplier + 20;
-                        expect[relation.name] += expectDocsNumber;
-                        
+                        const expectDocsNumber = seed.count * multiplier;
+                        expected[relation.name] += expectDocsNumber;
                         for (const doc of docs) {
                             await expect(doc[generateFkId(seed.name)].toString()).to.be.a("string");
                         }
                     }
                 }
-                
-                //TODO: Check total of documents per model
-                for (const key in expected) {
-                    if (expected.hasOwnProperty(key)) {
-                        const element = expected[key];
-                    
-                    }
-                }
-
-
             }
+
+            console.log(expected)
+            //TODO: Check total of documents per model
+            for (const key in expected) {
+                if (expected.hasOwnProperty(key)) {
+                    const quantityExpected = expected[key];
+                    const collection = bale.db.collection(key);
+                    const count = await collection.count();
+                    await expect(quantityExpected).to.equal(count);
+                }
+            }
+
             expect(success).to.equal(true);
 
         });
