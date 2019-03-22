@@ -4,7 +4,7 @@ const Driver = require("./driver");
 
 class MongoDriver extends Driver {
     connect() {
-        const {user = "", password = "", host = "localhost", port = "27017", dbname = "baleDB"} = this.config;
+        const {user = "", password = "", host = "localhost", port = "27017", dbname = "baleDB", reset = true} = this.config;
         const url = this.createConnectionString(user, password, host, port, dbname);
         const connectPromise = new Promise((resolve, reject) => {
             MongoClient.connect(url, function (err, db) {
@@ -18,7 +18,7 @@ class MongoDriver extends Driver {
         return connectPromise         
         .then(db => {
             this.db = db;
-            if (this.config.reset) {
+            if (reset) {
                 db.dropDatabase();
             }
             return "connected!";

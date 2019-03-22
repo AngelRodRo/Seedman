@@ -1,2 +1,2 @@
-#!/usr/bin/env inspect 
+#!/usr/bin/env node 
 require('../src/index.js');

@@ -12,12 +12,12 @@ npm install --save seedman
 
 ## Features
 
-- Generate data from any model include relations (one-to-one, one-to-many).
+- Generate data from any model including relations (one-to-one, one-to-many).
 - Connection for any database engine (SQL or NoSQL): MongoDB, Postgres, Mysql. **(Current Version: Only Supports MongoDB)**
 
 ## Usage 
 
-**Note**: This seeder will **erase all database data** before start. For avoid this, set **reset** field in the configuration file to **false**.
+**IMPORTANT**: This seeder will **erase all database data** before start. For avoid this, set **reset** field in the configuration file to **false**.
 
 For usage it's neccesary define a JSON files defining properties such:
    
