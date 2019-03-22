@@ -48,7 +48,6 @@ function getOptions() {
     if (help()) {
         return;
     }
-    debugger
     const seedsPath = getSeedsPath();
     fs.readdir(seedsPath, function (err, files) {
         if (err) {
