@@ -1,10 +1,11 @@
 {
   "name": "seedman",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Seeder for populate a DB in Mongodb, MySQL or Postgres",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha tests/index.js"
+    "test": "mocha tests/index.js",
+    "test:inspect": "mocha spec --inspect-brk tests/index.js"
   },
   "keywords": [
     "seeders",

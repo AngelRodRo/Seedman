@@ -12,17 +12,18 @@ npm install --save seedman
 
 ## Features
 
-- Generate seeds from any data model
-- Connection for any database engine (SQL or NoSQL): MongoDB, Postgres, Mysql. (Current Version: Only Supports MongoDB)
+- Generate data from any model including relations (one-to-one, one-to-many).
+- Connection for any database engine (SQL or NoSQL): MongoDB, Postgres, Mysql. **(Current Version: Only Supports MongoDB)**
 
 ## Usage 
+
+**IMPORTANT**: This seeder will **erase all database data** before start. For avoid this, set **reset** field in the configuration file to **false**.
 
 For usage it's neccesary define a JSON files defining properties such:
    
 - **name:** Model name in the DB for populate
 - **properties:** Model properties or fields.
 - **count:** Amout data for populate in the model
-
 
 Example:
 
@@ -68,21 +69,7 @@ Also it's important to define a configuration file in otherwise will be use a de
 }
 ```
 
-## CLI
-
-```
-$ seedman -h
- 
-  Usage: seedman 
- 
-  A CLI interface for Seedman
- 
-  Options:
- 
-    -h, --help                    output usage information
-```
-
-## Seeds props
+## Seed props
 
 | Props       | Description                                  | 
 | ----------- | -------------------------------------------- | 
@@ -129,6 +116,69 @@ user.json
 ```
 
 But, there are some properties name, it won't identify according to the name and generate a random string or it depending of the type defined in the seeder can be a number or string array (length = 5).
+
+## Relations
+
+It's possible define a relation between models:
+
+- One-to-One
+- One-to-Many
+
+For define a new relation it's important define a new field referencing a seed, this field must be the seed name with the next properties:
+
+- **type**: model
+- **relation**: hasOne or hasMany.
+- **count**: Records amount to create
+- **fkId (Optional)**: Custom foreign key, for default it's **modelId**
+
+Example:
+
+user.json
+
+```json
+    {
+    "name": "User",
+    "properties" : {
+        "lastName": "string",
+        "phone": "string",
+        "address": "string",
+        "Post": {
+            "type": "model",
+            "relation": "hasMany"
+        }
+    },
+    "count": 1
+}
+```
+
+post.json
+
+```json
+{
+    "name": "Post",
+    "properties" : {
+        "description": "string"
+    },
+    "count": 1
+}
+```
+
+**Note:** If the seed to reference (Post) has **count** field also will generate independent records, in order to avoid this is important remove that field.
+
+
+## CLI
+
+```
+$ seedman -h
+ 
+  Usage: seedman 
+ 
+  A CLI interface for Seedman
+ 
+  Options:
+ 
+    -h, --help                    output usage information
+```
 
 ## Tests
 

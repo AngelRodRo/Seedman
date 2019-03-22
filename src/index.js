@@ -17,7 +17,7 @@ function help() {
     }
 }
 
-function getSeedersPath() {
+function getSeedsPath() {
     const currentSeederDir = path.join(process.cwd(), "./seeders") ;
     const defaultSeedersDir = path.join(__dirname, "../samples/seeders");
     let argSeederDir;
@@ -45,26 +45,28 @@ function getOptions() {
 }
 
 (function () {
-
     if (help()) {
         return;
     }
-
-    const seedersPath = getSeedersPath();
-    fs.readdir(seedersPath, function (err, files) {
+    debugger
+    const seedsPath = getSeedsPath();
+    fs.readdir(seedsPath, function (err, files) {
         if (err) {
             console.log("Seeders not found !".red);
             return;
         }
         const bale = new Bale();
         const options = getOptions();
+
         bale.connect(options)
         .then(function () {
+
             for (const file of files) {
-                const seeder = require(`${seedersPath}/${file}`);
+                const seeder = require(`${seedsPath}/${file}`);
                 seeder.file = file;
                 bale.use(seeder);
             }
+
             return bale.run().then((success) => {
                 if(success) {
                     console.log('Seeder completed!'.green);
