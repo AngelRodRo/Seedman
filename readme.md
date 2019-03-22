@@ -12,12 +12,12 @@ npm install --save seedman
 
 ## Features
 
-- Generate seeds from any data model
-- Connection for any database engine (SQL or NoSQL): MongoDB, Postgres, Mysql. (Current Version: Only Supports MongoDB)
+- Generate data from any model include relations (one-to-one, one-to-many).
+- Connection for any database engine (SQL or NoSQL): MongoDB, Postgres, Mysql. **(Current Version: Only Supports MongoDB)**
 
 ## Usage 
 
-**Note**: This seeder will erase all database data before start. For avoid this, set **reset** field in the configuration file to **false**.
+**Note**: This seeder will **erase all database data** before start. For avoid this, set **reset** field in the configuration file to **false**.
 
 For usage it's neccesary define a JSON files defining properties such:
    
@@ -69,22 +69,7 @@ Also it's important to define a configuration file in otherwise will be use a de
 }
 ```
 
-
-## CLI
-
-```
-$ seedman -h
- 
-  Usage: seedman 
- 
-  A CLI interface for Seedman
- 
-  Options:
- 
-    -h, --help                    output usage information
-```
-
-## Seeds props
+## Seed props
 
 | Props       | Description                                  | 
 | ----------- | -------------------------------------------- | 
@@ -139,7 +124,7 @@ It's possible define a relation between models:
 - One-to-One
 - One-to-Many
 
-For define a new relation it's important define a new field referencing a seed, this field must be the seed name with some properties:
+For define a new relation it's important define a new field referencing a seed, this field must be the seed name with the next properties:
 
 - **type**: model
 - **relation**: hasOne or hasMany.
@@ -178,7 +163,22 @@ post.json
 }
 ```
 
-**Note:** If the seed to reference (Post) has **count** field will generate independent records, in order to avoid this is important remove that field.
+**Note:** If the seed to reference (Post) has **count** field also will generate independent records, in order to avoid this is important remove that field.
+
+
+## CLI
+
+```
+$ seedman -h
+ 
+  Usage: seedman 
+ 
+  A CLI interface for Seedman
+ 
+  Options:
+ 
+    -h, --help                    output usage information
+```
 
 ## Tests
 
