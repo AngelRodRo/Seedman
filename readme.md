@@ -17,12 +17,13 @@ npm install --save seedman
 
 ## Usage 
 
+**Note**: This seeder will erase all database data before start. For avoid this, set **reset** field in the configuration file to **false**.
+
 For usage it's neccesary define a JSON files defining properties such:
    
 - **name:** Model name in the DB for populate
 - **properties:** Model properties or fields.
 - **count:** Amout data for populate in the model
-
 
 Example:
 
@@ -67,6 +68,7 @@ Also it's important to define a configuration file in otherwise will be use a de
     "dbname": "dbname"
 }
 ```
+
 
 ## CLI
 
@@ -137,11 +139,11 @@ It's possible define a relation between models:
 - One-to-One
 - One-to-Many
 
-For define a new relation it's important define a new field referencing to some seed, this field need to have:
+For define a new relation it's important define a new field referencing a seed, this field must be the seed name with some properties:
 
 - **type**: model
 - **relation**: hasOne or hasMany.
-- **count**: Quantity model registers to generate
+- **count**: Records amount to create
 - **fkId (Optional)**: Custom foreign key, for default it's **modelId**
 
 Example:
@@ -170,16 +172,13 @@ post.json
 {
     "name": "Post",
     "properties" : {
-        "description": "string",
-        "Tag": {
-            "type": "model",
-            "relation": "hasMany"
-        }
+        "description": "string"
     },
     "count": 1
 }
 ```
 
+**Note:** If the seed to reference (Post) has **count** field will generate independent records, in order to avoid this is important remove that field.
 
 ## Tests
 

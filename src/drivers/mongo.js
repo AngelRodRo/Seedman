@@ -18,7 +18,9 @@ class MongoDriver extends Driver {
         return connectPromise         
         .then(db => {
             this.db = db;
-            db.dropDatabase();
+            if (this.config.reset) {
+                db.dropDatabase();
+            }
             return "connected!";
         });
     }
