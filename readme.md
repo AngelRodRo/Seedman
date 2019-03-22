@@ -130,6 +130,57 @@ user.json
 
 But, there are some properties name, it won't identify according to the name and generate a random string or it depending of the type defined in the seeder can be a number or string array (length = 5).
 
+## Relations
+
+It's possible define a relation between models:
+
+- One-to-One
+- One-to-Many
+
+For define a new relation it's important define a new field referencing to some seed, this field need to have:
+
+- **type**: model
+- **relation**: hasOne or hasMany.
+- **count**: Quantity model registers to generate
+- **fkId (Optional)**: Custom foreign key, for default it's **modelId**
+
+Example:
+
+user.json
+
+```json
+    {
+    "name": "User",
+    "properties" : {
+        "lastName": "string",
+        "phone": "string",
+        "address": "string",
+        "Post": {
+            "type": "model",
+            "relation": "hasMany"
+        }
+    },
+    "count": 1
+}
+```
+
+post.json
+
+```json
+{
+    "name": "Post",
+    "properties" : {
+        "description": "string",
+        "Tag": {
+            "type": "model",
+            "relation": "hasMany"
+        }
+    },
+    "count": 1
+}
+```
+
+
 ## Tests
 
 ```
