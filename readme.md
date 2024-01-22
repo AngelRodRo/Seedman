@@ -1,5 +1,6 @@
-Seedman is a seeder allows you create data for any models or collections in any database engine like MongoDB, MySQL, Postgres, etc. (Current version: Only Supports MongoDB).
+<h1>Seedman</h1>
 
+Seedman is a seeder allows you create data for any models or collections in any database engine like MongoDB, MySQL, Postgres, etc. (Current version: Only Supports MongoDB).
 
 ## Install
 
@@ -29,29 +30,29 @@ Example:
 
 **user.json**
 ```json
-    {
-        "name": "User",
-        "properties" : {
-            "firstName": "string",
-            "lastName": "string",
-            "phone": "string",
-            "address": "string"
-        },
-        "count": 20
-    }
+{
+  "name": "User",
+  "properties" : {
+      "firstName": "string",
+      "lastName": "string",
+      "phone": "string",
+      "address": "string"
+  },
+  "count": 20
+}
 ```
 
 **post.json**
 ```json
-    {
-        "name": "Post",
-        "properties" : {
-            "title": "string",
-            "tags": "array",
-            "visits": "number"
-        },
-        "count": 20
-    }
+{
+  "name": "Post",
+  "properties" : {
+      "title": "string",
+      "tags": "array",
+      "visits": "number"
+  },
+  "count": 20
+}
 ```
 
 For default, theses files must be inside a folder named `seeders`
@@ -91,16 +92,16 @@ For the **User** example:
 
 user.json
 ```json
-    {
-        "name": "User",
-        "properties" : {
-            "firstName": "string",
-            "lastName": "string",
-            "phone": "string",
-            "address": "string"
-        },
-        "count": 20
-    }
+{
+  "name": "User",
+  "properties" : {
+      "firstName": "string",
+      "lastName": "string",
+      "phone": "string",
+      "address": "string"
+  },
+  "count": 20
+}
 ```
 
 **firstName, lastName, phone and address**. Theses properties will use values according to their context:
@@ -136,18 +137,18 @@ Example:
 user.json
 
 ```json
-    {
-    "name": "User",
-    "properties" : {
-        "lastName": "string",
-        "phone": "string",
-        "address": "string",
-        "Post": {
-            "type": "model",
-            "relation": "hasMany"
-        }
-    },
-    "count": 1
+{
+   "name": "User",
+   "properties" : {
+     "lastName": "string",
+     "phone": "string",
+     "address": "string",
+     "Post": {
+         "type": "model",
+         "relation": "hasMany"
+     }
+   },
+   "count": 1
 }
 ```
 
